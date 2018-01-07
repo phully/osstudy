@@ -1,6 +1,7 @@
 #include "Types.h"
 #include "Keyboard.h"
 #include "Descriptor.h"
+#include "PIC.h"
 
 void kPrintString(int iX,int iY,const char *pcString);
 
@@ -32,14 +33,20 @@ void Main(void)
 
     if(kActivateKeyboard() == TRUE)
     {
-        kPrintString(45,12,"Pass");
+        kPrintString(45,15,"Pass");
         kChangeKeyboardLED(FALSE,FALSE,FALSE);
     }
     else
     {
-        kPrintString(45,12,"Fail");
+        kPrintString(45,15,"Fail");
         while(1);
     }
+
+    kPrintString(0,16,"PIC Controller And Interrupt Initialize.....[    ]");
+    kInitializePIC();
+    kMaskPICInterrupt(0);
+    kEnableInterrupt();
+    kPrintString(45,16,"Pass");
 
     while(1)
     {
@@ -51,7 +58,7 @@ void Main(void)
             {
                 if(bFlags & KEY_FLAGS_DOWN)
                 {
-                    kPrintString(i++,16,vcTemp);
+                    kPrintString(i++,17,vcTemp);
 
                     if(vcTemp[0] == '0')
                     {

@@ -35,11 +35,11 @@
 
 #define GDTR_STARTADDRESS       0x142000
 #define GDT_MAXENTRY8COUNT      3
-#define GDT_MAXENTRY16COUNT     3
+#define GDT_MAXENTRY16COUNT     1
 
-#define GDT_TABLESIZE           ((sizeof(GDTENTRY8) * sizeof(GDT_MAXENTRY8COUNT)) + \
-    (sizeof(GDTENTRY16) * sizeof(GDT_MAXENTRY16COUNT)) )
-#define TSS_SEGMENTSIZE        (sizeof(TSSSEGMENT))
+#define GDT_TABLESIZE           ( ( sizeof( GDTENTRY8 ) * GDT_MAXENTRY8COUNT ) + \
+        ( sizeof( GDTENTRY16 ) * GDT_MAXENTRY16COUNT ) )
+#define TSS_SEGMENTSIZE        ( sizeof(TSSSEGMENT) )
 
 
 #define IDT_TYPE_INTERRUPT      0x0E
@@ -58,7 +58,7 @@
 #define IDT_MAXENTRYCOUNT       100
 #define IDTR_STARTADDRESS       (GDTR_STARTADDRESS + sizeof(GDTR) + GDT_TABLESIZE + TSS_SEGMENTSIZE)
 #define IDT_STARTADDRESS        (IDTR_STARTADDRESS + sizeof(IDTR))
-#define IDT_TABLESIZE           (IDT_MAXENTRYCOUNT + sizeof(IDTENTRY))
+#define IDT_TABLESIZE           (IDT_MAXENTRYCOUNT * sizeof(IDTENTRY))
 
 #define IST_STARTADDRESS        0x700000
 #define IST_SIZE                0x100000

@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "page.h": "c",
-        "utility.h": "c"
+        "utility.h": "c",
+        "pic.h": "c"
     }
 }
