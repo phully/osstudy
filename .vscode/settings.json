@@ -2,6 +2,8 @@
     "files.associations": {
         "page.h": "c",
         "utility.h": "c",
-        "pic.h": "c"
+        "pic.h": "c",
+        "console.h": "c",
+        "interrupthandler.h": "c"
     }
 }
