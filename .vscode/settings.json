@@ -4,6 +4,7 @@
         "utility.h": "c",
         "pic.h": "c",
         "console.h": "c",
-        "interrupthandler.h": "c"
+        "interrupthandler.h": "c",
+        "rtc.h": "c"
     }
 }
