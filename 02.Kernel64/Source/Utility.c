@@ -1,5 +1,6 @@
 #include "Utility.h"
 #include "AssemblyUtility.h"
+#include <stdarg.h>
 
 void kMemSet(void *pvDestination,BYTE bData,int iSize)
 {

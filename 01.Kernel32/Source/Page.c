@@ -2,17 +2,17 @@
 
 void kInitializePageTables(void)
 {
-    PML4ENTRY *pstPML4Entry;
+    PML4TENTRY *pstPML4TEntry;
     PDPTENTRY *pstPDPTEntry;
     PDENTRY *pstPDEntry;
     DWORD dwMappingAddress;
     int i;
 
-    pstPML4Entry = (PML4ENTRY *)0x100000;
-    kSetPageEntryData( &(pstPML4Entry[0]),0x00,0x101000,PAGE_FLAGS_DEFAULT,0);
-    for(i=1;i<512;i++)
+    pstPML4TEntry = (PML4TENTRY *)0x100000;
+    kSetPageEntryData( &(pstPML4TEntry[0]),0x00,0x101000,PAGE_FLAGS_DEFAULT,0);
+    for(i=1;i<PAGE_MAXENTRYCOUNT;i++)
     {
-        kSetPageEntryData(&(pstPML4Entry[i]),0,0,0,0);
+        kSetPageEntryData(&(pstPML4TEntry[i]),0,0,0,0);
     }
 
     pstPDPTEntry = (PDPTENTRY *)0x101000;

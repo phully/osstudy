@@ -2,6 +2,7 @@
 #define __CONSOLESHELL_H__
 
 #include "Types.h"
+#include "Task.h"
 
 #define CONSOLESHELL_MAXCOMMANDBUFFERCOUNT  300
 #define CONSOLESHELL_PROMPTMESSAGE          "MINT64>"
@@ -41,5 +42,8 @@ void kWaitUsingPIT(const char *pcParameterBuffer);
 void kReadTimeStampCounter(const char *pcParameterBuffer);
 void kMeasureProcessorSpeed(const char *pcParameterBuffer);
 void kShowDateAndTime(const char *pcParameterBuffer);
+
+void kTestTask(void);
+void kCreateTestTask(const char *pcParameterBuffer);
 
 #endif
