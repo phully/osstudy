@@ -1,0 +1,1 @@
+qemu-system-x86_64 -L . -m 128 -fda Disk.img -localtime -M pc
