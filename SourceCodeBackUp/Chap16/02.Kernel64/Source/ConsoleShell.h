@@ -28,7 +28,7 @@ typedef struct kParameterListStruct
 
 void kStartConsoleShell(void);
 void kExecuteCommand(const char *pcCommandBuffer);
-void kInitializeParamter(PARAMETERLIST *pstList,const char *pcParameter);
+void kInitializeParameter(PARAMETERLIST *pstList,const char *pcParameter);
 int kGetNextParameter(PARAMETERLIST *pstList,char *pcParameter);
 
 void kHelp(const char *pcParameterBuffer);
