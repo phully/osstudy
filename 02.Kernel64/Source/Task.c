@@ -108,7 +108,7 @@ TCB* kCreateTask(QWORD qwFlags,void *pvMemoryAddress,QWORD qwMemorySize,QWORD qw
 
     pstTask->stThreadLink.qwID = pstTask->stLink.qwID;
 
-    kUnlockForSystemData(bPreviousFlag);
+    kUnlockForSystemData( bPreviousFlag );
 
     pvStackAddress = (void *)(TASK_STACKPOOLADDRESS + (TASK_STACKSIZE * GETTCBOFFSET(pstTask->stLink.qwID)));
 
