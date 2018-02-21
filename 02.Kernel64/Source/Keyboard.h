@@ -1,30 +1,14 @@
-/**
- *  file    Keyboard.h
- *  date    2009/01/09
- *  author  kkamagui 
- *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   키보드 디바이스 드라이버 함수들을 정의한 파일
- */
-
 #ifndef __KEYBOARD_H__
 #define __KEYBOARD_H__
 
 #include "Types.h"
 
-////////////////////////////////////////////////////////////////////////////////
-//
-// 매크로
-//
-////////////////////////////////////////////////////////////////////////////////
-// Pause 키를 처리하기 위해 무시해야 하는 나머지 스캔 코드의 수
-#define KEY_SKIPCOUNTFORPAUSE       2
+#define KEY_SKIPCOUNTFORPAUSE 2
 
-// 키 상태에 대한 플래그
-#define KEY_FLAGS_UP             0x00
-#define KEY_FLAGS_DOWN           0x01
-#define KEY_FLAGS_EXTENDEDKEY    0x02
+#define KEY_FLAGS_UP            0x00
+#define KEY_FLAGS_DOWN          0x01
+#define KEY_FLAGS_EXTENDEDKEY   0x02
 
-// 스캔 코드 매핑 테이블에 대한 매크로
 #define KEY_MAPPINGTABLEMAXCOUNT    89
 
 #define KEY_NONE        0x00
@@ -32,7 +16,6 @@
 #define KEY_TAB         '\t'
 #define KEY_ESC         0x1B
 #define KEY_BACKSPACE   0x08
-
 #define KEY_CTRL        0x81
 #define KEY_LSHIFT      0x82
 #define KEY_RSHIFT      0x83
@@ -66,77 +49,52 @@
 #define KEY_F12         0x9F
 #define KEY_PAUSE       0xA0
 
-// 키 큐에 대한 매크로
-// 키 큐의 최대 크기
-#define KEY_MAXQUEUECOUNT	100
+#define KEY_MAXQUEUECOUNT   100
 
-////////////////////////////////////////////////////////////////////////////////
-//
-// 구조체
-//
-////////////////////////////////////////////////////////////////////////////////
-// 1바이트로 정렬
-#pragma pack( push, 1 )
+#pragma pack(push,1)
 
-// 스캔 코드 테이블을 구성하는 항목
 typedef struct kKeyMappingEntryStruct
 {
-    // Shift 키나 Caps Lock 키와 조합되지 않는 ASCII 코드
     BYTE bNormalCode;
-    
-    // Shift 키나 Caps Lock 키와 조합된 ASCII 코드
     BYTE bCombinedCode;
-} KEYMAPPINGENTRY;
+}KEYMAPPINGENTRY;
 
-// 키보드의 상태를 관리하는 자료구조
 typedef struct kKeyboardManagerStruct
 {
-    // 조합 키 정보
     BOOL bShiftDown;
     BOOL bCapsLockOn;
     BOOL bNumLockOn;
     BOOL bScrollLockOn;
-    
-    // 확장 키를 처리하기 위한 정보
-    BOOL bExtendedCodeIn;
-    int iSkipCountForPause;
-} KEYBOARDMANAGER;
 
-// 키 큐에 삽입할 데이터 구조체
+    BOOL bExtendedCodeIn;
+    int  iSkipCountForPause;
+}KEYBOARDMANAGER;
+
 typedef struct kKeyDataStruct
 {
-    // 키보드에서 전달된 스캔 코드
-	BYTE bScanCode;
-    // 스캔 코드를 변환한 ASCII 코드
-	BYTE bASCIICode;
-    // 키 상태를 저장하는 플래그(눌림/떨어짐/확장 키 여부)
-	BYTE bFlags;
-} KEYDATA;
+    BYTE bScanCode;
+    BYTE bASCIICode;
+    BYTE bFlags;
+}KEYDATA;
 
-#pragma pack( pop )
+#pragma pack(pop)
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//  함수
-//
-////////////////////////////////////////////////////////////////////////////////
-BOOL kIsOutputBufferFull( void );
-BOOL kIsInputBufferFull( void );
-BOOL kActivateKeyboard( void );
-BYTE kGetKeyboardScanCode( void );
-BOOL kChangeKeyboardLED( BOOL bCapsLockOn, BOOL bNumLockOn, BOOL bScrollLockOn );
-void kEnableA20Gate( void );
-void kReboot( void );
-BOOL kIsAlphabetScanCode( BYTE bScanCode );
-BOOL kIsNumberOrSymbolScanCode( BYTE bScanCode );
-BOOL kIsNumberPadScanCode( BYTE bScanCode );
-BOOL kIsUseCombinedCode( BOOL bScanCode );
-void UpdateCombinationKeyStatusAndLED( BYTE bScanCode );
-BOOL kConvertScanCodeToASCIICode( BYTE bScanCode, BYTE* pbASCIICode, BOOL* pbFlags );
-BOOL kInitializeKeyboard( void );
-BOOL kConvertScanCodeAndPutQueue( BYTE bScanCode );
-BOOL kGetKeyFromKeyQueue( KEYDATA* pstData );
-BOOL kWaitForACKAndPutOtherScanCode( void );
+BOOL kIsOutputBufferFull(void);
+BOOL kIsInputBufferFull(void);
+BOOL kActivateKeyboard(void);
+BYTE kGetKeyboardScanCode(void);
+BOOL kChangeKeyboardLED(BOOL bCapsLockOn,BOOL bNumLockOn,BOOL bScrollLockOn);
+void kEnableA20Gate(void);
+void kReboot(void);
+BOOL kIsAlphabetScanCode(BYTE bScanCode);
+BOOL kIsNumberOrSymbolScanCode(BYTE bScanCode);
+BOOL kIsNumberPadScanCode(BYTE bScanCode);
+BOOL kIsUseCombinedCode(BYTE bScanCode);
+void UpdateCombinationKeyStatusAndLED(BYTE bScanCode);
+BOOL kConvertScanCodeToASCIICode(BYTE bScanCode,BYTE *pbASCIICode,BOOL *pbFlags);
+BOOL kInitializeKeyboard(void);
+BOOL kConvertScanCodeAndPutQueue(BYTE bScanCode);
+BOOL kGetKeyFromKeyQueue(KEYDATA *pstData);
+BOOL kWaitForACKAndPutOtherScanCode(void);
 
-#endif /*__KEYBOARD_H__*/
-
+#endif

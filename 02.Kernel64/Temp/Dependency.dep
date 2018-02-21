@@ -5,8 +5,10 @@ InterruptHandler.o: ../Source/InterruptHandler.c \
 RTC.o: ../Source/RTC.c ../Source/RTC.h ../Source/Types.h
 Keyboard.o: ../Source/Keyboard.c ../Source/Types.h \
  ../Source/AssemblyUtility.h ../Source/Task.h ../Source/List.h \
- ../Source/Keyboard.h ../Source/Queue.h ../Source/Synchronization.h
-PIC.o: ../Source/PIC.c ../Source/PIC.h ../Source/Types.h
+ ../Source/Keyboard.h ../Source/Queue.h ../Source/Utility.h \
+ ../Source/Synchronization.h
+PIC.o: ../Source/PIC.c ../Source/PIC.h ../Source/Types.h \
+ ../Source/AssemblyUtility.h ../Source/Task.h ../Source/List.h
 Main.o: ../Source/Main.c ../Source/Types.h ../Source/Keyboard.h \
  ../Source/Descriptor.h ../Source/PIC.h ../Source/Console.h \
  ../Source/ConsoleShell.h ../Source/Task.h ../Source/List.h \
@@ -26,7 +28,6 @@ Synchronization.o: ../Source/Synchronization.c \
  ../Source/Synchronization.h ../Source/Types.h ../Source/Utility.h \
  ../Source/Task.h ../Source/List.h
 ConsoleShell.o: ../Source/ConsoleShell.c ../Source/ConsoleShell.h \
- ../Source/Types.h ../Source/Console.h ../Source/Keyboard.h \
- ../Source/Utility.h ../Source/PIT.h ../Source/RTC.h \
- ../Source/AssemblyUtility.h ../Source/Task.h ../Source/List.h \
- ../Source/Synchronization.h
+ ../Source/Types.h ../Source/Task.h ../Source/List.h ../Source/Console.h \
+ ../Source/Keyboard.h ../Source/Utility.h ../Source/PIT.h ../Source/RTC.h \
+ ../Source/AssemblyUtility.h ../Source/Synchronization.h

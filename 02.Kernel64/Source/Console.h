@@ -1,22 +1,8 @@
-/**
- *  file    Console.h
- *  date    2009/01/31
- *  author  kkamagui 
- *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   콘솔에 관련된 헤더 파일
- */
-
 #ifndef __CONSOLE_H__
 #define __CONSOLE_H__
 
 #include "Types.h"
 
-////////////////////////////////////////////////////////////////////////////////
-//
-// 매크로
-//
-////////////////////////////////////////////////////////////////////////////////
-// 비디오 메모리의 속성(Attribute) 값 설정
 #define CONSOLE_BACKGROUND_BLACK            0x00
 #define CONSOLE_BACKGROUND_BLUE             0x10
 #define CONSOLE_BACKGROUND_GREEN            0x20
@@ -42,50 +28,33 @@
 #define CONSOLE_FOREGROUND_BRIGHTMAGENTA    0x0D
 #define CONSOLE_FOREGROUND_BRIGHTYELLOW     0x0E
 #define CONSOLE_FOREGROUND_BRIGHTWHITE      0x0F
-// 기본 문자 색상
-#define CONSOLE_DEFAULTTEXTCOLOR            ( CONSOLE_BACKGROUND_BLACK | \
-        CONSOLE_FOREGROUND_BRIGHTGREEN )
 
-// 콘솔의 너비(Width)와 높이(Height),그리고 비디오 메모리의 시작 어드레스 설정
-#define CONSOLE_WIDTH               80
-#define CONSOLE_HEIGHT              25
+#define CONSOLE_DEFAULTTEXTCOLOR    (CONSOLE_BACKGROUND_BLACK | CONSOLE_FOREGROUND_BRIGHTGREEN)
+
+#define CONSOLE_WIDTH   80
+#define CONSOLE_HEIGHT  25
 #define CONSOLE_VIDEOMEMORYADDRESS  0xB8000
 
-// 비디오 컨트롤러의 I/O 포트 어드레스와 레지스터
-#define VGA_PORT_INDEX              0x3D4
-#define VGA_PORT_DATA               0x3D5
-#define VGA_INDEX_UPPERCURSOR       0x0E
-#define VGA_INDEX_LOWERCURSOR       0x0F
+#define VGA_PORT_INDEX  0x3D4
+#define VGA_PORT_DATA   0x3D5
+#define VGA_INDEX_UPPERCURSOR    0x0E
+#define VGA_INDEX_LOWERCURSOR    0x0F
 
-////////////////////////////////////////////////////////////////////////////////
-//
-// 구조체
-//
-////////////////////////////////////////////////////////////////////////////////
-// 1바이트로 정렬
-#pragma pack( push, 1 )
+#pragma pack(push,1)
 
-// 콘솔에 대한 정보를 저장하는 자료구조
-typedef struct kConsoleManagerStruct
-{
-    // 문자와 커서를 출력할 위치
+typedef struct kConsoleManagerStruct{
     int iCurrentPrintOffset;
-} CONSOLEMANAGER;
+}CONSOLEMANAGER;
 
-#pragma pack( pop )
+#pragma pack(pop)
 
-////////////////////////////////////////////////////////////////////////////////
-//
-// 함수
-//
-////////////////////////////////////////////////////////////////////////////////
-void kInitializeConsole( int iX, int iY );
-void kSetCursor( int iX, int iY );
-void kGetCursor( int *piX, int *piY );
-void kPrintf( const char* pcFormatString, ... );
-int kConsolePrintString( const char* pcBuffer );
-void kClearScreen( void );
-BYTE kGetCh( void );
-void kPrintStringXY( int iX, int iY, const char* pcString );
+void kIntializeConsole(int iX,int iY);
+void kSetCursor(int iX,int iY);
+void kGetCursor(int *piX,int *piY);
+void kPrintf(const char *pcFormatString,...);
+int kConsolePrintString(const char *pcBuffer);
+void kClearScreen(void);
+BYTE kGetCh(void);
+void kPrintStringXY(int iX,int iY,const char *pcString);
 
-#endif /*__CONSOLE_H__*/
+#endif
