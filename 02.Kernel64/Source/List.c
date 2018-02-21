@@ -51,7 +51,7 @@ void kAddListToHeader(LIST *pstList,void *pvItem)
         return ;
     }
 
-    pstList->pvHeader = pstLink;
+    pstList->pvHeader = pvItem;
     pstList->iItemCount++;
 }
 
@@ -71,7 +71,7 @@ void *kRemoveList(LIST *pstList,QWORD qwID)
                 pstList->pvHeader = NULL;
                 pstList->pvTail = NULL;
             }
-            else if(pstLink == pstPreviousLink)
+            else if(pstLink == pstList->pvHeader)
             {
                 pstList->pvHeader = pstLink->pvNext;
             }
@@ -123,7 +123,7 @@ void *kFindList(const LIST *pstList,QWORD qwID)
 {
     LISTLINK *pstLink;
     
-    for(pstLink=pstList->pvHeader;pstLink!=NULL;pstLink=pstLink->pvNext)
+    for(pstLink=(LISTLINK *)pstList->pvHeader;pstLink!=NULL;pstLink=pstLink->pvNext)
     {
         if(pstLink->qwID == qwID)
         {
