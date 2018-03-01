@@ -26,7 +26,7 @@ BOOL kInitializeFileSystem(void)
         gs_pfReadHDDSector = kReadHDDSector;
         gs_pfWriteHDDSector = kWriteHDDSector;
 
-        bCacheEnable = TRUE;
+        //bCacheEnable = TRUE;
     }
     else if(kInitializeRDD(RDD_TOTALSECTORCOUNT) == TRUE)
     {
@@ -852,7 +852,7 @@ DWORD kReadFile(void *pvBuffer,DWORD dwSize,DWORD dwCount,FILE *pstFile)
 
     kUnlock(&(gs_stFileSystemManager.stMutex));
 
-    return dwReadCount;
+    return (dwReadCount / dwSize);
 }
 
 static BOOL kUpdateDirectoryEntry(FILEHANDLE *pstFileHandle)
@@ -953,7 +953,7 @@ DWORD kWriteFile(const void *pvBuffer,DWORD dwSize,DWORD dwCount, FILE *pstFile)
 
             pstFileHandle->dwPreviousClusterIndex = pstFileHandle->dwCurrentClusterIndex;
             pstFileHandle->dwCurrentClusterIndex = dwNextClusterIndex;
-        }
+        }   
     }
 
     if(pstFileHandle->dwFileSize < pstFileHandle->dwCurrentOffset)
@@ -963,7 +963,7 @@ DWORD kWriteFile(const void *pvBuffer,DWORD dwSize,DWORD dwCount, FILE *pstFile)
     }
 
     kUnlock(&(gs_stFileSystemManager.stMutex));
-    return dwWriteCount;
+    return (dwWriteCount/dwSize);
 }
 
 BOOL kWriteZero(FILE *pstFile,DWORD dwCount)
@@ -1014,7 +1014,7 @@ int kSeekFile(FILE *pstFile,int iOffset,int iOrigin)
     DWORD dwCurrentClusterIndex;
     FILEHANDLE *pstFileHandle;
 
-    if((pstFile == NULL) || (pstFile->bType |= FILESYSTEM_TYPE_FILE))
+    if((pstFile == NULL) || (pstFile->bType != FILESYSTEM_TYPE_FILE))
     {
         return 0;
     }
@@ -1034,17 +1034,17 @@ int kSeekFile(FILE *pstFile,int iOffset,int iOrigin)
         }
         break;
     case FILESYSTEM_SEEK_CUR:
-        if((iOffset < 0) && (pstFileHandle->dwCurrentOffset <= (DWORD)-iOffset))
+        if((iOffset < 0) && (pstFileHandle->dwCurrentOffset <= (DWORD) -iOffset))
         {
             dwRealOffset = 0;
         }
         else
         {
-            dwRealOffset = pstFileHandle->dwCurrentClusterIndex + iOffset;
+            dwRealOffset = pstFileHandle->dwCurrentOffset + iOffset;
         }
         break;
     case FILESYSTEM_SEEK_END:
-        if((iOffset < 0) && (pstFileHandle->dwFileSize <= (DWORD)-iOffset))
+        if((iOffset < 0) && (pstFileHandle->dwFileSize <= (DWORD) -iOffset))
         {
             dwRealOffset = 0;
         }
@@ -1064,9 +1064,9 @@ int kSeekFile(FILE *pstFile,int iOffset,int iOrigin)
         dwMoveCount = dwLastClusterOffset - dwCurrentClusterOffset;
         dwStartClusterIndex = pstFileHandle->dwCurrentClusterIndex;
     }
-    else if(dwCurrentClusterIndex <= dwClusterOffsetToMove)
+    else if(dwCurrentClusterOffset <= dwClusterOffsetToMove)
     {
-        dwMoveCount = dwClusterOffsetToMove - dwCurrentClusterIndex;
+        dwMoveCount = dwClusterOffsetToMove - dwCurrentClusterOffset;
         dwStartClusterIndex = pstFileHandle->dwCurrentClusterIndex;
     }
     else
@@ -1085,7 +1085,7 @@ int kSeekFile(FILE *pstFile,int iOffset,int iOrigin)
 
         if(kGetClusterLinkData(dwPreviousClusterIndex,&dwCurrentClusterIndex) == FALSE)
         {
-            kunlock(&(gs_stFileSystemManager.stMutex));
+            kUnlock(&(gs_stFileSystemManager.stMutex));
             return -1;
         }
     }

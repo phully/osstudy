@@ -1506,7 +1506,7 @@ static void kTestFileIO(const char *pcParameterBuffer)
 
     kPrintf("1. File Open Fail Test...");
 
-    pstFile = fopen("testfileio.bin","w");
+    pstFile = fopen("testfileio.bin","r");
     if(pstFile == NULL)
     {
         kPrintf("[Pass]\n");
@@ -1568,17 +1568,17 @@ static void kTestFileIO(const char *pcParameterBuffer)
                 break;
             }
         }
-
-        if(i>=100)
-        {
-            kPrintf("[Pass]\n");
-        }
+    }
+    if(i>=100)
+    {
+        kPrintf("[Pass]\n");
     }
 
     kPrintf("5. Random Write Test...\n");
 
     kMemSet(pbBuffer,0,dwMaxFileSize);
     fseek(pstFile,-100*FILESYSTEM_CLUSTERSIZE,SEEK_CUR);
+    fread(pbBuffer, 1, dwMaxFileSize, pstFile );
 
     for(i=0;i<100;i++)
     {
