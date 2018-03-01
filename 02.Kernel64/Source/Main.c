@@ -73,18 +73,6 @@ void Main(void)
     kSetCursor(45,iCursorY++);
     kPrintf("Pass\n");
 
-    kPrintf("HDD Initialize..............................[    ]\n");
-    if(kInitializeHDD() == TRUE)
-    {
-        kSetCursor(45,iCursorY++);
-        kPrintf("Pass\n");
-    }
-    else
-    {
-        kSetCursor(45,iCursorY++);
-        kPrintf("Fail\n");
-    }
-
     kPrintf("File System Initialize......................[    ]\n");
     if(kInitializeFileSystem() == TRUE)
     {
