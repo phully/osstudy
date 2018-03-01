@@ -6,6 +6,7 @@
 #include "CacheManager.h"
 #include "RAMDisk.h"
 
+
 static FILESYSTEMMANAGER gs_stFileSystemManager;
 static BYTE gs_vbTempBuffer[FILESYSTEM_SECTORSPERCLUSTER * 512];
 
@@ -26,7 +27,7 @@ BOOL kInitializeFileSystem(void)
         gs_pfReadHDDSector = kReadHDDSector;
         gs_pfWriteHDDSector = kWriteHDDSector;
 
-        //bCacheEnable = TRUE;
+        bCacheEnable = TRUE;
     }
     else if(kInitializeRDD(RDD_TOTALSECTORCOUNT) == TRUE)
     {
@@ -418,6 +419,7 @@ static BOOL kInternalWriteClusterWithCache(DWORD dwOffset,BYTE *pbBuffer)
     return TRUE;
 }
 
+// 여기부터
 static DWORD kFindFreeCluster(void)
 {
     DWORD dwLinkCountInSector;
@@ -441,28 +443,28 @@ static DWORD kFindFreeCluster(void)
         {
             dwLinkCountInSector = 128;
         }
-    }
 
-    dwCurrentSectorOffset = (dwLastSectorOffset + i) % gs_stFileSystemManager.dwClusterLinkAreaSize;
+        dwCurrentSectorOffset = (dwLastSectorOffset + i) % gs_stFileSystemManager.dwClusterLinkAreaSize;
 
-    if(kReadClusterLinkTable(dwCurrentSectorOffset,gs_vbTempBuffer)==FALSE)
-    {
-        return FILESYSTEM_LASTCLUSTER;
-    }
-
-    for(j=0;j<dwLinkCountInSector;j++)
-    {
-        if(((DWORD *)gs_vbTempBuffer)[j] == FILESYSTEM_FREECLUSTER)
+        if(kReadClusterLinkTable(dwCurrentSectorOffset,gs_vbTempBuffer)==FALSE)
         {
-            break;
+            return FILESYSTEM_LASTCLUSTER;
         }
-    }
 
-    if(j != dwLinkCountInSector)
-    {
-        gs_stFileSystemManager.dwLastAllocatedClusterLinkSectorOffset = dwCurrentSectorOffset;
+        for(j=0;j<dwLinkCountInSector;j++)
+        {
+            if(((DWORD *)gs_vbTempBuffer)[j] == FILESYSTEM_FREECLUSTER)
+            {
+                break;
+            }
+        }
 
-        return (dwCurrentSectorOffset * 128) + j;
+        if(j != dwLinkCountInSector)
+        {
+            gs_stFileSystemManager.dwLastAllocatedClusterLinkSectorOffset = dwCurrentSectorOffset;
+
+            return (dwCurrentSectorOffset * 128) + j;
+        }
     }
 
     return FILESYSTEM_LASTCLUSTER;
@@ -516,8 +518,10 @@ static BOOL kGetClusterLinkData(DWORD dwClusterIndex,DWORD *pdwData)
     }
 
     *pdwData = ((DWORD *)gs_vbTempBuffer)[dwClusterIndex % 128];
+
     return TRUE;
 }
+// 여기까지
 
 static int kFindFreeDirectoryEntry(void)
 {
