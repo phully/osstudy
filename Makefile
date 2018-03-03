@@ -49,7 +49,7 @@ Utility:
 	@echo ========================= Utility Build Start ======================
 	@echo
 
-	make -C 04.Utility/00.ImageMaker
+	make -C 04.Utility
 
 	@echo
 	@echo ========================= Utility Build Complete ======================

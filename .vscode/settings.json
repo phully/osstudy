@@ -5,6 +5,7 @@
         "pic.h": "c",
         "console.h": "c",
         "interrupthandler.h": "c",
-        "rtc.h": "c"
+        "rtc.h": "c",
+        "windows.h": "c"
     }
 }

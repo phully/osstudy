@@ -27,7 +27,7 @@ BOOL kInitializeFileSystem(void)
         gs_pfReadHDDSector = kReadHDDSector;
         gs_pfWriteHDDSector = kWriteHDDSector;
 
-        bCacheEnable = TRUE;
+        //bCacheEnable = TRUE;
     }
     else if(kInitializeRDD(RDD_TOTALSECTORCOUNT) == TRUE)
     {
@@ -226,7 +226,6 @@ static BOOL kInternalReadClusterLinkTableWithCache(DWORD dwOffset,BYTE *pbBuffer
     }
 
     pstCacheBuffer = kAllocateCacheBufferWithFlush(CACHE_CLUSTERLINKTABLEAREA);
-    
     if(pstCacheBuffer == NULL)
     {
         return FALSE;
@@ -377,11 +376,11 @@ static BOOL kWriteCluster(DWORD dwOffset,BYTE *pbBuffer)
 {
     if(gs_stFileSystemManager.bCacheEnable == FALSE)
     {
-        kInternalWriteClusterWithoutCache(dwOffset,pbBuffer);        
+        return kInternalWriteClusterWithoutCache(dwOffset,pbBuffer);        
     }
     else
     {
-        kInternalWriteClusterWithCache(dwOffset,pbBuffer);
+        return kInternalWriteClusterWithCache(dwOffset,pbBuffer);
     }
 }
 
@@ -521,7 +520,6 @@ static BOOL kGetClusterLinkData(DWORD dwClusterIndex,DWORD *pdwData)
 
     return TRUE;
 }
-// 여기까지
 
 static int kFindFreeDirectoryEntry(void)
 {

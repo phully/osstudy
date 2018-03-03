@@ -36,7 +36,7 @@ int kReadRDDSector(BOOL bPrimary,BOOL bMaster,DWORD dwLBA,int iSectorCount,char 
 {
     int iRealReadCount;
 
-    iRealReadCount = MIN(gs_stRDDManager.dwTotalSectorCount - (dwLBA + iSectorCount),iSectorCount);
+    iRealReadCount = MIN(gs_stRDDManager.dwTotalSectorCount - dwLBA,iSectorCount);
 
     kMemCpy(pcBuffer,gs_stRDDManager.pbBuffer + (dwLBA * 512),iRealReadCount * 512);
 
@@ -47,7 +47,7 @@ int kWriteRDDSector(BOOL bPrimary,BOOL bMaster,DWORD dwLBA,int iSectorCount,char
 {
     int iRealWriteCount;
 
-    iRealWriteCount = MIN(gs_stRDDManager.dwTotalSectorCount - (dwLBA + iSectorCount),iSectorCount);
+    iRealWriteCount = MIN(gs_stRDDManager.dwTotalSectorCount - dwLBA,iSectorCount);
 
     kMemCpy(gs_stRDDManager.pbBuffer + (dwLBA * 512),pcBuffer,iRealWriteCount*512);
 

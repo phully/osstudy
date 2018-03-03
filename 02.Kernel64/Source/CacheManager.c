@@ -20,7 +20,7 @@ BOOL kInitializeCacheManager(void)
 
     if(gs_stCacheManager.vpbBuffer[CACHE_CLUSTERLINKTABLEAREA] == NULL)
     {
-        return NULL;
+        return FALSE;
     }
 
     for(i=0;i<CACHE_MAXCLUSTERLINKTABLEAREACOUNT;i++)
@@ -164,7 +164,13 @@ CACHEBUFFER *kGetVictimInCacheBuffer(int iCacheTableIndex)
     pstCacheBuffer = gs_stCacheManager.vvstCacheBuffer[iCacheTableIndex];
 
     for(i=0;i<gs_stCacheManager.vdwMaxCount[iCacheTableIndex];i++)
-    {
+    {        
+        if(pstCacheBuffer[ i ].dwTag == CACHE_INVALIDTAG )
+        {
+            iOldIndex = i;
+            break;
+        }
+
         if(pstCacheBuffer[i].dwAccessTime < dwOldTime)
         {
             dwOldTime = pstCacheBuffer[i].dwAccessTime;
