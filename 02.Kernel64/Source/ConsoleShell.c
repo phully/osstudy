@@ -11,6 +11,7 @@
 #include "HardDisk.h"
 #include "FileSystem.h"
 #include "SerialPort.h"
+#include "MPConfigurationTable.h"
 
 SHELLCOMMANDENTRY gs_vstCommandTable[] = {
     {"help","Show Help",kHelp},
@@ -49,7 +50,8 @@ SHELLCOMMANDENTRY gs_vstCommandTable[] = {
     {"testfileio","Test File I/O Function",kTestFileIO},
     {"testperformance","Test File Read/Write Performance",kTestPerformance},
     {"flush","Flush File Read/Write Performance",kTestPerformance},
-    {"download","Download Data From Serial, ex) download a.txt",kDownloadFile}
+    {"download","Download Data From Serial, ex) download a.txt",kDownloadFile},
+    {"showmpinfo","Show MP Configuration Table Information",kShowMPConfigurationTable},
 };
 
 void kStartConsoleShell(void)
@@ -1942,4 +1944,9 @@ static void kDownloadFile(const char *pcParameterBuffer)
 
     fclose(fp);
     kFlushFileSystemCache();
+}
+
+static void kShowMPConfigurationTable(const char *pcParameterBuffer)
+{
+    kPrintMPConfigurationTable();
 }

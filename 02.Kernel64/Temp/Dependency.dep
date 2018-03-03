@@ -13,6 +13,9 @@ Main.o: ../Source/Main.c ../Source/Types.h ../Source/Keyboard.h \
  ../Source/CacheManager.h ../Source/SerialPort.h ../Source/Queue.h
 Utility.o: ../Source/Utility.c ../Source/Utility.h ../Source/Types.h \
  ../Source/AssemblyUtility.h ../Source/Task.h ../Source/List.h
+MPConfigurationTable.o: ../Source/MPConfigurationTable.c \
+ ../Source/MPConfigurationTable.h ../Source/Types.h ../Source/Console.h \
+ ../Source/Utility.h
 Console.o: ../Source/Console.c ../Source/Console.h ../Source/Types.h \
  ../Source/Keyboard.h
 Descriptor.o: ../Source/Descriptor.c ../Source/Descriptor.h \
@@ -46,7 +49,8 @@ ConsoleShell.o: ../Source/ConsoleShell.c ../Source/ConsoleShell.h \
  ../Source/Keyboard.h ../Source/Utility.h ../Source/PIT.h ../Source/RTC.h \
  ../Source/AssemblyUtility.h ../Source/Synchronization.h \
  ../Source/DynamicMemory.h ../Source/HardDisk.h ../Source/FileSystem.h \
- ../Source/CacheManager.h ../Source/SerialPort.h ../Source/Queue.h
+ ../Source/CacheManager.h ../Source/SerialPort.h ../Source/Queue.h \
+ ../Source/MPConfigurationTable.h
 List.o: ../Source/List.c ../Source/List.h ../Source/Types.h
 FileSystem.o: ../Source/FileSystem.c ../Source/FileSystem.h \
  ../Source/Types.h ../Source/Synchronization.h ../Source/HardDisk.h \

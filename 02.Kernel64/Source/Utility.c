@@ -72,7 +72,6 @@ int kMemCmp(const void *pvDestination,const void *pvSource,int iSize)
     }
 
     iRemainByteStartOffset = i*8;
-
     for(i=0;i<(iSize%8);i++)
     {
         cValue = ((char *)pvDestination)[iRemainByteStartOffset] - ((char *)pvSource)[iRemainByteStartOffset];

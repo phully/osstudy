@@ -80,4 +80,6 @@ static void kTestPerformance(const char *pcParameterBuffer);
 
 static void kDownloadFile(const char *pcParameterBuffer);
 
+static void kShowMPConfigurationTable(const char *pcParameterBuffer);
+
 #endif
