@@ -112,6 +112,11 @@ void MainForApplicationProcessor(void)
     kLoadTR(GDT_TSSSEGMENT + (kGetAPICID() * sizeof(GDTENTRY16)));
     kLoadIDTR(IDTR_STARTADDRESS);
 
+    kEnableSoftwareLocalAPIC();
+    kSetTaskPriority(0);
+    kInitializeLocalVectorTable();
+    kEnableInterrupt();
+
     qwTickCount = kGetTickCount();
 
     while(1)

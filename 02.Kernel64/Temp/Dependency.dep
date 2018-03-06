@@ -41,6 +41,8 @@ HardDisk.o: ../Source/HardDisk.c ../Source/HardDisk.h ../Source/Types.h \
  ../Source/Synchronization.h
 DynamicMemory.o: ../Source/DynamicMemory.c ../Source/DynamicMemory.h \
  ../Source/Types.h ../Source/Utility.h ../Source/Task.h ../Source/List.h
+IOAPIC.o: ../Source/IOAPIC.c ../Source/IOAPIC.h ../Source/Types.h \
+ ../Source/MPConfigurationTable.h ../Source/PIC.h ../Source/LocalAPIC.h
 RAMDisk.o: ../Source/RAMDisk.c ../Source/RAMDisk.h ../Source/Types.h \
  ../Source/Synchronization.h ../Source/HardDisk.h ../Source/Utility.h \
  ../Source/DynamicMemory.h
@@ -59,7 +61,7 @@ ConsoleShell.o: ../Source/ConsoleShell.c ../Source/ConsoleShell.h \
  ../Source/DynamicMemory.h ../Source/HardDisk.h ../Source/FileSystem.h \
  ../Source/CacheManager.h ../Source/SerialPort.h ../Source/Queue.h \
  ../Source/MPConfigurationTable.h ../Source/LocalAPIC.h \
- ../Source/MultiProcessor.h
+ ../Source/MultiProcessor.h ../Source/IOAPIC.h
 List.o: ../Source/List.c ../Source/List.h ../Source/Types.h
 FileSystem.o: ../Source/FileSystem.c ../Source/FileSystem.h \
  ../Source/Types.h ../Source/Synchronization.h ../Source/HardDisk.h \

@@ -35,6 +35,8 @@ void kCommonInterruptHandler(int iVectorNumber)
     kPrintStringXY(70,0,vcBuffer);
 
     kSendEOIToPIC(iVectorNumber - PIC_IRQSTARTVECTOR);
+
+    kSendEOIToLocalAPIC();
 }
 
 void kKeyboardHandler(int iVectorNumber)
@@ -57,6 +59,8 @@ void kKeyboardHandler(int iVectorNumber)
     }
 
     kSendEOIToPIC(iVectorNumber - PIC_IRQSTARTVECTOR);
+
+    kSendEOIToLocalAPIC();
 }
 
 void kTimerHandler(int iVectorNumber)
@@ -71,6 +75,8 @@ void kTimerHandler(int iVectorNumber)
     g_iTimerInterruptCount = (g_iTimerInterruptCount + 1) % 10;
 
     kSendEOIToPIC(iVectorNumber - PIC_IRQSTARTVECTOR);
+
+    kSendEOIToLocalAPIC();
 
     g_qwTickCount++;
 
@@ -154,4 +160,6 @@ void kHDDHandler(int iVectorNumber)
     }
 
     kSendEOIToPIC(iVectorNumber-PIC_IRQSTARTVECTOR);
+
+    kSendEOIToLocalAPIC();
 }
